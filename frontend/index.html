@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NutriEye – AI Nutrition Intelligence</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="header">
+    <div class="logo">🥗 NutriEye</div>
+    <nav>
+      <a href="index.html" class="active">Analyze</a>
+    </nav>
+  </header>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <h1>AI-Powered Nutrition Intelligence</h1>
+    <p>Snap or upload a food photo and get instant nutritional insights powered by deep learning.</p>
+  </section>
+
+  <!-- ── Main App ── -->
+  <main class="app-grid">
+
+    <!-- Left: Input Panel -->
+    <section class="card input-panel">
+      <h2>Analyze Your Food</h2>
+
+      <!-- Upload -->
+      <label class="drop-zone" id="dropZone">
+        <span id="dropText">Click or drag & drop a food image here</span>
+        <img id="previewImg" src="" alt="Preview" style="display:none;" />
+        <input type="file" id="fileInput" accept="image/*" onchange="handleFileSelect(event)" hidden />
+      </label>
+      <div class="weight-row">
+        <label>Weight (g)</label>
+        <input type="number" id="weightGrams" value="100" min="1" max="2000" placeholder="100" />
+      </div>
+      <button class="btn-primary" onclick="analyzeUpload()">🔍 Analyze Food</button>
+
+      <!-- Loading spinner -->
+      <div id="loadingSpinner" class="spinner" style="display:none;">
+        <div class="spin"></div>
+        <p>Analyzing with AI...</p>
+      </div>
+    </section>
+
+    <!-- Right: Results Panel -->
+    <section class="card results-panel" id="resultsPanel" style="display:none;">
+      <h2>Nutrition Results</h2>
+
+      <div class="food-badge">
+        <span id="foodEmoji">🍽️</span>
+        <div>
+          <h3 id="foodName">–</h3>
+          <span class="confidence-badge" id="confidenceBadge">–</span>
+        </div>
+      </div>
+
+      <div class="nutrition-grid">
+        <div class="nutrient-card calories">
+          <div class="nutrient-icon">🔥</div>
+          <div class="nutrient-value" id="calories">–</div>
+          <div class="nutrient-label">Calories (kcal)</div>
+        </div>
+        <div class="nutrient-card protein">
+          <div class="nutrient-icon">💪</div>
+          <div class="nutrient-value" id="protein">–</div>
+          <div class="nutrient-label">Protein (g)</div>
+        </div>
+        <div class="nutrient-card carbs">
+          <div class="nutrient-icon">🌾</div>
+          <div class="nutrient-value" id="carbs">–</div>
+          <div class="nutrient-label">Carbs (g)</div>
+        </div>
+        <div class="nutrient-card fat">
+          <div class="nutrient-icon">🥑</div>
+          <div class="nutrient-value" id="fat">–</div>
+          <div class="nutrient-label">Fat (g)</div>
+        </div>
+      </div>
+
+      <div class="vitamins-box">
+        <h4>🧪 Vitamins & Minerals</h4>
+        <p id="vitamins">–</p>
+      </div>
+
+      <!-- Charts -->
+      <div class="charts-wrapper">
+        <div class="chart-box">
+          <p class="chart-title">Macronutrient Breakdown</p>
+          <canvas id="donutChart"></canvas>
+        </div>
+        <div class="chart-box">
+          <p class="chart-title">Nutrition vs Daily Goal</p>
+          <canvas id="barChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Calorie bar -->
+      <div class="calorie-bar-wrapper">
+        <div class="calorie-bar-label">
+          <span>Daily Goal (2000 kcal)</span>
+          <span id="caloriePercent">0%</span>
+        </div>
+        <div class="calorie-bar-bg">
+          <div class="calorie-bar-fill" id="calorieBarFill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <button class="btn-secondary" onclick="saveToLog()" id="saveBtn" style="display:none;">💾 Save to Daily Log</button>
+    </section>
+
+  </main>
+
+  <!-- ── BMI Calculator ── -->
+  <section class="card bmi-section">
+    <h2>⚖️ BMI Calculator</h2>
+    <div class="bmi-form">
+      <div class="input-group">
+        <label>Weight (kg)</label>
+        <input type="number" id="weight" placeholder="e.g. 70" min="1" max="300" />
+      </div>
+      <div class="input-group">
+        <label>Height (cm)</label>
+        <input type="number" id="height" placeholder="e.g. 175" min="50" max="250" />
+      </div>
+      <button class="btn-primary" onclick="calcBMI()">Calculate BMI</button>
+    </div>
+    <div id="bmiResult" class="bmi-result" style="display:none;">
+      <div class="bmi-value" id="bmiValue">–</div>
+      <div class="bmi-category" id="bmiCategory">–</div>
+      <div class="bmi-scale">
+        <div class="bmi-range underweight">Underweight<br/>&lt;18.5</div>
+        <div class="bmi-range normal">Normal<br/>18.5–24.9</div>
+        <div class="bmi-range overweight">Overweight<br/>25–29.9</div>
+        <div class="bmi-range obese">Obese<br/>&ge;30</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Toast notification ── -->
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

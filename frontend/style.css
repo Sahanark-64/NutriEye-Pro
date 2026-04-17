@@ -1,0 +1,567 @@
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green:   #2ecc71;
+  --blue:    #3498db;
+  --orange:  #f39c12;
+  --red:     #e74c3c;
+  --purple:  #9b59b6;
+  --dark:    #1a1a2e;
+  --card-bg: rgba(255,255,255,0.07);
+  --border:  rgba(255,255,255,0.12);
+  --text:    #f0f0f0;
+  --muted:   #aaa;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  min-height: 100vh;
+  color: var(--text);
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 40px;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  margin-left: 24px;
+  font-size: 0.95rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: all 0.2s;
+}
+
+nav a:hover, nav a.active {
+  color: #fff;
+  background: rgba(255,255,255,0.12);
+}
+
+/* ── Hero ── */
+.hero {
+  text-align: center;
+  padding: 48px 20px 24px;
+}
+
+.hero h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #56ccf2, #2f80ed, #a29bfe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+}
+
+.hero p { color: var(--muted); font-size: 1.05rem; }
+
+/* ── Card ── */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+  backdrop-filter: blur(12px);
+}
+
+.card h2 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+/* ── App Grid (Analyze page) ── */
+.app-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto 32px;
+  padding: 0 24px;
+}
+
+@media (max-width: 768px) {
+  .app-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 1.5rem; }
+}
+
+/* ── Tabs ── */
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.tab.active, .tab:hover {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border-color: rgba(255,255,255,0.3);
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ── Drop Zone ── */
+.drop-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed var(--border);
+  border-radius: 14px;
+  padding: 30px 20px;
+  cursor: pointer;
+  min-height: 180px;
+  transition: border-color 0.2s;
+  margin-bottom: 16px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.drop-zone:hover { border-color: #56ccf2; color: #fff; }
+
+.drop-zone img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* ── Webcam ── */
+.webcam-wrapper {
+  border-radius: 14px;
+  overflow: hidden;
+  background: #000;
+  margin-bottom: 14px;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#webcamVideo {
+  width: 100%;
+  max-height: 240px;
+  object-fit: cover;
+  display: block;
+}
+
+.webcam-controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ── Buttons ── */
+.btn-primary, .btn-secondary, .btn-danger {
+  padding: 11px 22px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: opacity 0.2s, transform 0.1s;
+  width: 100%;
+}
+
+.btn-primary  { background: linear-gradient(135deg, #2f80ed, #56ccf2); color: #fff; }
+.btn-secondary{ background: rgba(255,255,255,0.12); color: #fff; border: 1px solid var(--border); }
+.btn-danger   { background: linear-gradient(135deg, #e74c3c, #c0392b); color: #fff; }
+
+.btn-primary:hover, .btn-secondary:hover, .btn-danger:hover { opacity: 0.85; transform: translateY(-1px); }
+
+.webcam-controls .btn-primary,
+.webcam-controls .btn-secondary,
+.webcam-controls .btn-danger { width: auto; flex: 1; }
+
+/* ── Spinner ── */
+.spinner {
+  text-align: center;
+  padding: 20px;
+  color: var(--muted);
+}
+
+.spin {
+  width: 40px; height: 40px;
+  border: 4px solid rgba(255,255,255,0.1);
+  border-top-color: #56ccf2;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 10px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Results Panel ── */
+.food-badge {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding: 14px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+}
+
+#foodEmoji { font-size: 2.5rem; }
+
+.food-badge h3 {
+  font-size: 1.3rem;
+  text-transform: capitalize;
+  margin-bottom: 4px;
+}
+
+.confidence-badge {
+  background: rgba(46,204,113,0.2);
+  color: var(--green);
+  border: 1px solid var(--green);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* ── Nutrition Grid ── */
+.nutrition-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.nutrient-card {
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+
+.nutrient-card.calories  { background: rgba(231,76,60,0.15);  border-color: rgba(231,76,60,0.3); }
+.nutrient-card.protein   { background: rgba(52,152,219,0.15); border-color: rgba(52,152,219,0.3); }
+.nutrient-card.carbs     { background: rgba(243,156,18,0.15); border-color: rgba(243,156,18,0.3); }
+.nutrient-card.fat       { background: rgba(46,204,113,0.15); border-color: rgba(46,204,113,0.3); }
+
+.nutrient-icon  { font-size: 1.6rem; margin-bottom: 6px; }
+.nutrient-value { font-size: 1.5rem; font-weight: 700; }
+.nutrient-label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+/* ── Vitamins Box ── */
+.vitamins-box {
+  background: rgba(155,89,182,0.15);
+  border: 1px solid rgba(155,89,182,0.3);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 18px;
+}
+
+.vitamins-box h4 { margin-bottom: 6px; font-size: 0.9rem; }
+.vitamins-box p  { color: #c8a8e9; font-size: 0.9rem; }
+
+/* ── Calorie Bar ── */
+.calorie-bar-wrapper { margin-bottom: 18px; }
+
+.calorie-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.calorie-bar-bg {
+  background: rgba(255,255,255,0.08);
+  border-radius: 20px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.calorie-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2ecc71, #f39c12, #e74c3c);
+  border-radius: 20px;
+  transition: width 0.6s ease;
+}
+
+/* ── BMI Section ── */
+.bmi-section {
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  padding: 28px;
+}
+
+.bmi-form {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 140px;
+}
+
+.input-group label { font-size: 0.85rem; color: var(--muted); }
+
+.input-group input {
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.07);
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-group input:focus { border-color: #56ccf2; }
+
+.bmi-form .btn-primary { width: auto; min-width: 160px; }
+
+.bmi-result {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.bmi-value {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #56ccf2, #a29bfe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bmi-category {
+  font-size: 1.1rem;
+  margin: 6px 0 20px;
+  font-weight: 600;
+}
+
+.bmi-scale {
+  display: flex;
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.bmi-range { flex: 1; padding: 10px 4px; font-weight: 600; }
+.bmi-range.underweight { background: rgba(52,152,219,0.4); }
+.bmi-range.normal      { background: rgba(46,204,113,0.4); }
+.bmi-range.overweight  { background: rgba(243,156,18,0.4); }
+.bmi-range.obese       { background: rgba(231,76,60,0.4); }
+
+/* ── Dashboard ── */
+.dashboard-main {
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .summary-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.summary-card {
+  border-radius: 18px;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid var(--border);
+}
+
+.summary-card.calories-card { background: rgba(231,76,60,0.15); }
+.summary-card.protein-card  { background: rgba(52,152,219,0.15); }
+.summary-card.carbs-card    { background: rgba(243,156,18,0.15); }
+.summary-card.fat-card      { background: rgba(46,204,113,0.15); }
+
+.summary-icon  { font-size: 2rem; }
+.summary-value { font-size: 1.6rem; font-weight: 700; }
+.summary-label { font-size: 0.8rem; color: var(--muted); }
+.summary-goal  { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+
+/* ── Progress Bars (Dashboard) ── */
+
+.progress-item { margin-bottom: 18px; }
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+  color: var(--muted);
+}
+
+.progress-bar-bg {
+  background: rgba(255,255,255,0.08);
+  border-radius: 20px;
+  height: 12px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 20px;
+  transition: width 0.6s ease;
+}
+
+.cal-fill  { background: linear-gradient(90deg, #e74c3c, #c0392b); }
+.pro-fill  { background: linear-gradient(90deg, #3498db, #2980b9); }
+.carb-fill { background: linear-gradient(90deg, #f39c12, #e67e22); }
+.fat-fill  { background: linear-gradient(90deg, #2ecc71, #27ae60); }
+
+/* ── Meal Log Table ── */
+.log-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.log-header .btn-danger { width: auto; padding: 8px 16px; }
+
+.empty-log {
+  text-align: center;
+  padding: 40px;
+  color: var(--muted);
+}
+
+.empty-log a { color: #56ccf2; }
+
+.log-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.log-table th {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.log-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  text-transform: capitalize;
+}
+
+.log-table tr:hover td { background: rgba(255,255,255,0.04); }
+
+.log-table .btn-danger { width: auto; padding: 5px 12px; font-size: 0.8rem; }
+
+/* ── Toast ── */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(30,30,50,0.95);
+  border: 1px solid var(--border);
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 999;
+  backdrop-filter: blur(10px);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── Charts ── */
+.charts-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.chart-box {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  text-align: center;
+}
+
+.chart-title {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+/* ── Weight Input ── */
+.weight-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.weight-row input {
+  width: 100px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.07);
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.weight-row input:focus { border-color: #56ccf2; }

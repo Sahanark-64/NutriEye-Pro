@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NutriEye – Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo">🥗 NutriEye</div>
+    <nav>
+      <a href="index.html">Analyze</a>
+      <a href="dashboard.html" class="active">Dashboard</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Daily Nutrition Dashboard</h1>
+    <p>Track your meals and monitor your daily nutritional intake.</p>
+  </section>
+
+  <main class="dashboard-main">
+
+    <!-- Summary Cards -->
+    <div class="summary-grid">
+      <div class="summary-card calories-card">
+        <div class="summary-icon">🔥</div>
+        <div class="summary-info">
+          <div class="summary-value" id="totalCalories">0</div>
+          <div class="summary-label">Total Calories</div>
+          <div class="summary-goal">Goal: 2000 kcal</div>
+        </div>
+      </div>
+      <div class="summary-card protein-card">
+        <div class="summary-icon">💪</div>
+        <div class="summary-info">
+          <div class="summary-value" id="totalProtein">0g</div>
+          <div class="summary-label">Total Protein</div>
+          <div class="summary-goal">Goal: 50g</div>
+        </div>
+      </div>
+      <div class="summary-card carbs-card">
+        <div class="summary-icon">🌾</div>
+        <div class="summary-info">
+          <div class="summary-value" id="totalCarbs">0g</div>
+          <div class="summary-label">Total Carbs</div>
+          <div class="summary-goal">Goal: 300g</div>
+        </div>
+      </div>
+      <div class="summary-card fat-card">
+        <div class="summary-icon">🥑</div>
+        <div class="summary-info">
+          <div class="summary-value" id="totalFat">0g</div>
+          <div class="summary-label">Total Fat</div>
+          <div class="summary-goal">Goal: 65g</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress Bars -->
+    <div class="card progress-section">
+      <h2>Daily Progress</h2>
+      <div class="progress-item">
+        <div class="progress-label"><span>🔥 Calories</span><span id="calProgress">0 / 2000 kcal</span></div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill cal-fill" id="calBar" style="width:0%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label"><span>💪 Protein</span><span id="proProgress">0 / 50g</span></div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill pro-fill" id="proBar" style="width:0%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label"><span>🌾 Carbs</span><span id="carbProgress">0 / 300g</span></div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill carb-fill" id="carbBar" style="width:0%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label"><span>🥑 Fat</span><span id="fatProgress">0 / 65g</span></div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill fat-fill" id="fatBar" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- Meal Log Table -->
+    <div class="card log-section">
+      <div class="log-header">
+        <h2>Meal Log</h2>
+        <button class="btn-danger" onclick="clearLog()">🗑 Clear Log</button>
+      </div>
+      <div id="emptyLog" class="empty-log">
+        <p>No meals logged yet. Go to <a href="index.html">Analyze</a> to add your first meal.</p>
+      </div>
+      <table id="logTable" class="log-table" style="display:none;">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Food</th>
+            <th>Calories</th>
+            <th>Protein</th>
+            <th>Carbs</th>
+            <th>Fat</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="logBody"></tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
